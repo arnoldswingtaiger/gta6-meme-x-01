@@ -13,8 +13,8 @@ mkdirSync(outDir, { recursive: true });
 try {
   const post = readFileSync(join(repoDir, 'POST.json'));
   const entry = JSON.parse(post.toString('utf8')) as { url?: unknown };
-  if (typeof entry.url !== 'string' || !entry.url.startsWith('https://x.com/')) {
-    console.error('POST.json does not name an X post address');
+  if (typeof entry.url !== 'string' || !entry.url.startsWith('https://x.com/') || entry.url.includes('<')) {
+    console.error('POST.json does not name a real X post address');
     process.exit(1);
   }
   writeFileSync(join(outDir, 'POST.json'), post);
